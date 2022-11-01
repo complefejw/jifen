@@ -54,14 +54,6 @@ namespace 消防积分获取
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +63,15 @@ namespace 消防积分获取
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.系统ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -218,38 +219,6 @@ namespace 消防积分获取
             this.dataGridView1.Size = new System.Drawing.Size(947, 278);
             this.dataGridView1.TabIndex = 21;
             // 
-            // Column9
-            // 
-            this.Column9.Name = "Column9";
-            // 
-            // Column10
-            // 
-            this.Column10.Name = "Column10";
-            // 
-            // Column11
-            // 
-            this.Column11.Name = "Column11";
-            // 
-            // Column12
-            // 
-            this.Column12.Name = "Column12";
-            // 
-            // Column13
-            // 
-            this.Column13.Name = "Column13";
-            // 
-            // Column14
-            // 
-            this.Column14.Name = "Column14";
-            // 
-            // Column15
-            // 
-            this.Column15.Name = "Column15";
-            // 
-            // Column16
-            // 
-            this.Column16.Name = "Column16";
-            // 
             // Column1
             // 
             this.Column1.HeaderText = "用户ID";
@@ -310,11 +279,52 @@ namespace 消防积分获取
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             // 
+            // Column9
+            // 
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.Name = "Column10";
+            // 
+            // Column11
+            // 
+            this.Column11.Name = "Column11";
+            // 
+            // Column12
+            // 
+            this.Column12.Name = "Column12";
+            // 
+            // Column13
+            // 
+            this.Column13.Name = "Column13";
+            // 
+            // Column14
+            // 
+            this.Column14.Name = "Column14";
+            // 
+            // Column15
+            // 
+            this.Column15.Name = "Column15";
+            // 
+            // Column16
+            // 
+            this.Column16.Name = "Column16";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(146, 428);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 17);
+            this.label4.TabIndex = 22;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 580);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.checkBox2);
@@ -370,6 +380,7 @@ namespace 消防积分获取
         private DataGridViewTextBoxColumn Column7;
         private DataGridViewTextBoxColumn 系统ID;
         private DataGridViewTextBoxColumn Column8;
+        private Label label4;
     }
 }
 

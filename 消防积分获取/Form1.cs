@@ -378,7 +378,7 @@ namespace 消防积分获取
                 {
                     doc.Clear();
                     dataGridView1.Rows[i].Cells[8].Value = ((int)b["result"] - int.Parse(dataGridView1.Rows[i].Cells[6].Value.ToString())).ToString();
-                    if((int)dataGridView1.Rows[i].Cells[8].Value > 0)
+                    if(int.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) > 0)
                     {
                         doc.Add("@name", dataGridView1.Rows[i].Cells[1].Value.ToString());
                         doc.Add("@jifen1", dataGridView1.Rows[i].Cells[6].Value.ToString());
@@ -603,7 +603,7 @@ namespace 消防积分获取
             var SS = DateTime.Now.ToString("mm");
              if (d1 < 1)
             {
-                label3.Text = MM + SS;
+                label4.Text = MM + SS;
                 if (MM == "06" && SS == "00")
                 {
                     ChuShiHua();
