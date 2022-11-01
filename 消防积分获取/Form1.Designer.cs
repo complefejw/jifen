@@ -3,14 +3,7 @@ using System.Windows.Forms;
 
 namespace 消防积分获取
 {
-    class DoubleBufferDataGridView : DataGridView
-    {
-        public DoubleBufferDataGridView()
-        {
-            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();
-        }
-    }
+
     partial class Form1
     {
         /// <summary>
@@ -337,14 +330,13 @@ namespace 消防积分获取
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "一个看不得大家重复劳动的人帮大家完成消防任务.我不想被网警请去喝茶,请大家合理使用,禁止大面积传播";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

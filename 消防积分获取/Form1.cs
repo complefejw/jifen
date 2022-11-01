@@ -9,11 +9,12 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using Jint;
+using System.Reflection;
 
 namespace 消防积分获取
 {
 
-
+    
     public partial class Form1 : Form
     {
         [DllImport("kernel32")]// 读配置文件方法的6个参数：所在的分区（section）、 键值、     初始缺省值、   StringBuilder、  参数长度上限 、配置文件路径
@@ -23,11 +24,13 @@ namespace 消防积分获取
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.DoubleBufferedDataGirdView(true);
         }
         private string Authorization="", alipayMiniMark="";
         private string q;
         private string q1;//用于判断当前执行的人名称
         private int d1=0;     //用于判断是否正在执行
+
 
         public delegate void MyInvokeB(string str);//MyInvokeLAB方法创建委托
         public JObject GetList(string url,string dataPost)
@@ -659,5 +662,19 @@ namespace 消防积分获取
 
         }
 
+    }
+    public static class DoubleBufferDataGridView
+    {
+        /// <summary>
+        /// 双缓冲，解决闪烁问题
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <param name="flag"></param>
+        public static void DoubleBufferedDataGirdView(this DataGridView dgv, bool flag)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, flag, null);
+        }
     }
 }
