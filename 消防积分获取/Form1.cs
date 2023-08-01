@@ -14,7 +14,7 @@ using System.Reflection;
 namespace 消防积分获取
 {
 
-    
+
     public partial class Form1 : Form
     {
         [DllImport("kernel32")]// 读配置文件方法的6个参数：所在的分区（section）、 键值、     初始缺省值、   StringBuilder、  参数长度上限 、配置文件路径
@@ -26,16 +26,16 @@ namespace 消防积分获取
             InitializeComponent();
             dataGridView1.DoubleBufferedDataGirdView(true);
         }
-        private string Authorization="", alipayMiniMark="";
+        private string Authorization = "";
         private string q;
         private string q1;//用于判断当前执行的人名称
-        private int d1=0;     //用于判断是否正在执行
+        private int d1 = 0;     //用于判断是否正在执行
 
 
         public delegate void MyInvokeB(string str);//MyInvokeLAB方法创建委托
-        public JObject GetList(string url,string dataPost)
+        public JObject GetList(string url, string dataPost)
         {
-            if (alipayMiniMark == "" || Authorization == "")
+            if (Authorization == "")
             {
                 JObject newObj2 = new JObject(
                     new JProperty("msg", "没有填写用户信息"),
@@ -45,10 +45,8 @@ namespace 消防积分获取
             }
             Dictionary<string, string> myDictionary = new Dictionary<string, string>
             {
-                { "Authorization", Authorization},
-                { "alipayMiniMark",alipayMiniMark}
+                { "Authorization", Authorization}
             };
-            //MessageBox.Show(Authorization+"\r\n"+ alipayMiniMark);
             var t = JObject.Parse(HttpGet(url, myDictionary, dataPost));
             if (t["code"].ToString() == "1001")
             {
@@ -62,12 +60,12 @@ namespace 消防积分获取
                 );
                 return newObj2;
             }
-            
+
         }
 
         public JObject PostList(string url, string dataPost)
         {
-            if (Authorization == "" || alipayMiniMark == "")
+            if (Authorization == "")
             {
                 JObject newObj2 = new JObject(
                     new JProperty("msg", "没有填写用户信息"),
@@ -77,10 +75,9 @@ namespace 消防积分获取
             }
             Dictionary<string, string> myDictionary = new Dictionary<string, string>
             {
-                { "Authorization", Authorization},
-                { "alipayMiniMark",alipayMiniMark}
+                { "Authorization", Authorization}
             };
-            return JObject.Parse(HttpPost(url, myDictionary, dataPost,ref q));
+            return JObject.Parse(HttpPost(url, myDictionary, dataPost, ref q));
         }
         public void SetTxt(string str)
         {
@@ -98,8 +95,8 @@ namespace 消防积分获取
                 foreach (var item in a["result"]["articleList"])
                 {
                     BeginInvoke(mi, q1 + "|提交文章:" + item["title"].ToString());
-                    url = "https://qmxfxx.119.gov.cn/alipay/mini/api/home/taskScord/completeTask?parameter1="+ item["articleId"] + "&parameter2=XFZX&taskCode=CTWLREADARTICLE";
-                    var d =GetList(url, "");
+                    url = "https://qmxfxx.119.gov.cn/alipay/mini/api/home/taskScord/completeTask?parameter1=" + item["articleId"] + "&parameter2=XFZX&taskCode=CTWLREADARTICLE";
+                    var d = GetList(url, "");
                     if ((int)a["code"] == 1001)
                     {
                         if (d["result"].ToString() == "您已领取过该任务")
@@ -111,7 +108,7 @@ namespace 消防积分获取
                     {
                         BeginInvoke(mi, q1 + "|提交文章:失败,重试中");
                     }
-                        
+
                 }
             }
         }
@@ -135,7 +132,7 @@ namespace 消防积分获取
                     JObject newObj2 = new JObject(
                     new JProperty("questionId", item["questionId"]),
                     new JProperty("status", item["status"]),
-                    new JProperty("checkOption",item["checkOption"])
+                    new JProperty("checkOption", item["checkOption"])
                     );
                     peoples.Add(newObj2);
                 }
@@ -243,14 +240,14 @@ namespace 消防积分获取
             MyInvokeB mi = new MyInvokeB(SetTxt);//实例化一个委托，并且指定委托方法
             BeginInvoke(mi, q1 + "|获取消防视频列表");
             Random r = new Random();
-            string url = "https://qmxfxx.119.gov.cn/alipay/mini/api/news/content/list?channel=6&limit=10&offset="+ r.Next(1, 5).ToString();
+            string url = "https://qmxfxx.119.gov.cn/alipay/mini/api/news/content/list?channel=6&limit=10&offset=" + r.Next(1, 5).ToString();
             var a = GetList(url, "");
             //BeginInvoke(mi, "获取消防视频列表成功");
             if ((int)a["code"] == 1001)
             {
                 foreach (var item in a["result"]["videoList"])
                 {
-                    string ddurl = "https://qmxfxx.119.gov.cn/alipay/mini/api/home/taskScord/completeTask?parameter1=xfysList"+item["videoId"].ToString()+"&parameter2=XFYS&taskCode=CTWLAV";
+                    string ddurl = "https://qmxfxx.119.gov.cn/alipay/mini/api/home/taskScord/completeTask?parameter1=xfysList" + item["videoId"].ToString() + "&parameter2=XFYS&taskCode=CTWLAV";
                     var b = GetList(ddurl, "");
                     if ((int)b["code"] == 1001)
                     {
@@ -258,7 +255,7 @@ namespace 消防积分获取
                         {
                             return;
                         }
-                        BeginInvoke(mi, q1 + "|消防视频提交成功：" + b["result"].ToString()+"分");
+                        BeginInvoke(mi, q1 + "|消防视频提交成功：" + b["result"].ToString() + "分");
                     }
                     else
                     {
@@ -288,7 +285,7 @@ namespace 消防积分获取
             {
                 foreach (var item in b["result"]["videoDetail"]["videoStructureDetailDtoList"])
                 {
-                    BeginInvoke(mi, q1+"|提交视频:" + item["videoName"].ToString());
+                    BeginInvoke(mi, q1 + "|提交视频:" + item["videoName"].ToString());
                     url = "https://qmxfxx.119.gov.cn/alipay/mini/api/home/taskScord/completeTask?parameter1=" + item["videoId"].ToString() + "&parameter2=HTWKT&taskCode=CTWLAVTIME";
                     var d = GetList(url, "");
                     if ((int)d["code"] == 1001)
@@ -305,8 +302,8 @@ namespace 消防积分获取
                     }
                     if (checkBox1.Checked)
                     {
-                        Thread.Sleep(((int)item["lastTime"] - 60)*1000);
-                        BeginInvoke(mi, q1+"|当前视频视频:" + item["lastTime"].ToString() + "秒,等待中");
+                        Thread.Sleep(((int)item["lastTime"] - 60) * 1000);
+                        BeginInvoke(mi, q1 + "|当前视频视频:" + item["lastTime"].ToString() + "秒,等待中");
                     }
                     postdata = null;
                     postdata = new JObject(
@@ -324,7 +321,7 @@ namespace 消防积分获取
                     }
                     if (checkBox1.Checked)
                     {
-                        Thread.Sleep(60*1000);
+                        Thread.Sleep(60 * 1000);
                         BeginInvoke(mi, "观看视频60秒,等待中");
                     }
                 }
@@ -338,12 +335,13 @@ namespace 消防积分获取
 
         private void Zhu(int i)
         {
+            MyInvokeB mi = new MyInvokeB(SetTxt);//实例化一个委托，并且指定委托方法
             var d = new SqliteHelper();
             var doc = new Dictionary<string, string>();
             string starttime = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd HH:mm:ss").ToString();
             Authorization = dataGridView1.Rows[i].Cells[5].Value.ToString();
-            alipayMiniMark = dataGridView1.Rows[i].Cells[4].Value.ToString();
             q1 = dataGridView1.Rows[i].Cells[1].Value.ToString();
+            BeginInvoke(mi, "执行第" + (i + 1).ToString() + "条数据");
             GetList("https://qmxfxx.119.gov.cn/alipay/mini/api/home/taskScord/completeTask?taskCode=CTWLLOGIN", "");
             var b = GetList("https://qmxfxx.119.gov.cn/alipay/mini/api/users/activeScore", "");
             if ((int)b["code"] == 1001)
@@ -381,7 +379,7 @@ namespace 消防积分获取
                 {
                     doc.Clear();
                     dataGridView1.Rows[i].Cells[8].Value = ((int)b["result"] - int.Parse(dataGridView1.Rows[i].Cells[6].Value.ToString())).ToString();
-                    if(int.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) > 0)
+                    if (int.Parse(dataGridView1.Rows[i].Cells[8].Value.ToString()) > 0)
                     {
                         doc.Add("@name", dataGridView1.Rows[i].Cells[1].Value.ToString());
                         doc.Add("@jifen1", dataGridView1.Rows[i].Cells[6].Value.ToString());
@@ -430,9 +428,9 @@ namespace 消防积分获取
                     dataGridView1.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
                 }
             }
-            if (Authorization == "" || alipayMiniMark == "")
+            if (Authorization == "")
             {
-                MessageBox.Show("没有可以运行的用户数据,请检查是否全部过期或者没有增加用户数据？","启动失败");
+                MessageBox.Show("没有可以运行的用户数据,请检查是否全部过期或者没有增加用户数据？", "启动失败");
                 d1 = 0;
                 return;
             }
@@ -455,7 +453,7 @@ namespace 消防积分获取
                 listBox1.Items.Add("开始执行");
             }
         }
-        
+
         /// <summary>
         /// 开始执行按钮事件
         /// </summary>
@@ -563,7 +561,7 @@ namespace 消防积分获取
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            if (this.textBox2.Text.ToString() != "" && this.textBox1.Text.ToString() != "")
+            if (this.textBox1.Text.ToString() != "")
             {
                 string[] cc = this.textBox1.Text.ToString().Split(".");
                 if (cc.Length > 1)
@@ -577,10 +575,10 @@ namespace 消防积分获取
                     var d = new SqliteHelper();
                     Dictionary<string, string> dic = new Dictionary<string, string>();
                     string sql = "INSERT INTO User VALUES ((select id from User order by id desc)+1,'',null,'{0}','{1}','{2}','{3}','','','',null,null,'{4}',1)";
-                    sql = string.Format(sql, this.textBox2.Text.ToString(), this.textBox1.Text.ToString(), GetTime((long)cd["nbf"], false).ToString("yyyy-MM-dd HH:mm:ss"), GetTime((long)cd["exp"], false).ToString("yyyy-MM-dd HH:mm:ss"), cd["userId"].ToString());
+                    sql = string.Format(sql, null, this.textBox1.Text.ToString(), GetTime((long)cd["nbf"], false).ToString("yyyy-MM-dd HH:mm:ss"), GetTime((long)cd["exp"], false).ToString("yyyy-MM-dd HH:mm:ss"), cd["userId"].ToString());
                     d.ExecuteNonQuery(sql, dic);
                     MessageBox.Show("添加参数成功!", "添加成功");
-                    textBox2.Text = ""; textBox1.Text = "";
+                    textBox1.Text = "";
                     ChuShiHua();
                 }
                 else
@@ -604,12 +602,14 @@ namespace 消防积分获取
         {
             var MM = DateTime.Now.ToString("HH");
             var SS = DateTime.Now.ToString("mm");
-             if (d1 < 1)
+            if (d1 < 1)
             {
-                label4.Text = MM + SS;
-                if (MM == "06" && SS == "00")
+                label4.Text = "当前时间：" + MM + ":" + SS;
+                if (MM == textBox3.Text && SS == textBox4.Text && textBox4.Text != "" && textBox3.Text != "")
                 {
+                    checkBox2.Checked = false;
                     ChuShiHua();
+                    d1 = 1;
                     ThreadPool.QueueUserWorkItem(new WaitCallback(Nan), autoEvent);
                     listBox1.Items.Add("开始执行");
                 }
@@ -630,7 +630,7 @@ namespace 消防积分获取
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("是否确认删除这"+dataGridView1.SelectedRows.Count.ToString() + "项？", "警告",
+            DialogResult result = MessageBox.Show("是否确认删除这" + dataGridView1.SelectedRows.Count.ToString() + "项？", "警告",
                              MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             //判断是否取消事件
             if (result == DialogResult.No)
@@ -655,7 +655,7 @@ namespace 消防积分获取
                 }
             }
             string sql = "update User set st = 2 where id in ({0})";
-            sql = string.Format(sql,ii);
+            sql = string.Format(sql, ii);
             d.ExecuteNonQuery(sql, dic);
             MessageBox.Show("删除成功!", "添加成功");
             ChuShiHua();

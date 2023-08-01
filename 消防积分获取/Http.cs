@@ -128,23 +128,23 @@ namespace 消防积分获取
                 {
                     request.Headers.Add(item.Key, item.Value);
                 }
-                Random r = new Random();
-                int dd = r.Next(1, 4);
-                if (dd== 1)
-                {
-                    request.UserAgent = "Mozilla/5.0 (Linux; Android 10; EVR-AL00 Build/HUAWEIEVR-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.186 Mobile Safari/537.36 baiduboxapp/11.0.5.12 (Baidu; P1 10)";
-                }else if (dd == 2)
-                {
-                    request.UserAgent = "Mozilla/5.0 (Linux; Android 10; VCE-AL00 Build/HUAWEIVCE-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.186 Mobile Safari/537.36 baiduboxapp/11.0.5.12 (Baidu; P1 10)";
-                }
-                else if (dd == 3)
-                {
-                    request.UserAgent = "Mozilla/5.0 (Linux; U; Android 9; zh-cn; Redmi 7 Build/PKQ1.181021.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/71.0.3578.141 Mobile Safari/537.36 XiaoMi/MiuiBrowser/11.8.14";
-                }
-                else
-                {
-                    request.UserAgent = "Mozilla/5.0 (Linux; U; Android 4.0.3; zh-CN; SM901 Build/NZH54D) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.22.2.43 Mobile Safari/537.36 UCBS/3.22.2.43_220223200704 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:3G,ws:360|0|3.0) AliApp(AP/10.3.0.8000) AlipayClient/10.3.0.8000 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CNAriver/1.0.0";
-                }
+                //Random r = new Random();
+                //int dd = r.Next(1, 4);
+                //if (dd== 1)
+                //{
+                //    request.UserAgent = "Mozilla/5.0 (Linux; Android 10; EVR-AL00 Build/HUAWEIEVR-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.186 Mobile Safari/537.36 baiduboxapp/11.0.5.12 (Baidu; P1 10)";
+                //}else if (dd == 2)
+                //{
+                //    request.UserAgent = "Mozilla/5.0 (Linux; Android 10; VCE-AL00 Build/HUAWEIVCE-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.186 Mobile Safari/537.36 baiduboxapp/11.0.5.12 (Baidu; P1 10)";
+                //}
+                //else if (dd == 3)
+                //{
+                //    request.UserAgent = "Mozilla/5.0 (Linux; U; Android 9; zh-cn; Redmi 7 Build/PKQ1.181021.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/71.0.3578.141 Mobile Safari/537.36 XiaoMi/MiuiBrowser/11.8.14";
+                //}
+                //else
+                //{
+                //    request.UserAgent = "Mozilla/5.0 (Linux; U; Android 4.0.3; zh-CN; SM901 Build/NZH54D) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.22.2.43 Mobile Safari/537.36 UCBS/3.22.2.43_220223200704 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:3G,ws:360|0|3.0) AliApp(AP/10.3.0.8000) AlipayClient/10.3.0.8000 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CNAriver/1.0.0";
+                //}
 
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream myResponseStream = response.GetResponseStream();
@@ -154,12 +154,13 @@ namespace 消防积分获取
                 myResponseStream.Close();
                 return retString;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 JObject newObj2 = new JObject(
                     new JProperty("msg", "访问错误"),
                     new JProperty("code", 0)
                 );
+                Console.WriteLine(e.Message);
                 return newObj2.ToString();
             }
 
